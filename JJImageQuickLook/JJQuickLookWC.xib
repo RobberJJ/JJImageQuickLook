@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="JJQuickLookWC">
+            <connections>
+                <outlet property="_closeButton" destination="TK2-iF-o7c" id="GFO-DJ-vHg"/>
+                <outlet property="_enlargeButton" destination="HhZ-7c-YHE" id="l3l-dy-gcd"/>
+                <outlet property="_narrowButton" destination="IYA-pW-wc0" id="xGL-el-bgC"/>
+                <outlet property="_previewBack" destination="VxT-YE-0Yu" id="0BP-cB-YMh"/>
+                <outlet property="_previewNext" destination="eK5-NH-EHE" id="rUI-d7-rty"/>
+                <outlet property="_rotateButton" destination="Wnb-pe-lrz" id="4GH-QH-nJl"/>
+                <outlet property="_zoomButton" destination="twa-eW-6ek" id="RMg-Oq-4mS"/>
+                <outlet property="pageController" destination="UhI-nx-D6V" id="fyS-sw-O4J"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5" customClass="JJQuickLookWindow">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="513" height="389"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" wantsLayer="YES" id="se5-gp-TjO" customClass="NSVisualEffectView">
+                <rect key="frame" x="0.0" y="0.0" width="513" height="389"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" id="TK2-iF-o7c">
+                        <rect key="frame" x="8" y="365" width="14" height="14"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Browse_Close" imagePosition="only" alignment="center" alternateImage="Browse_CloseHl" imageScaling="proportionallyDown" inset="2" id="tIB-Ui-PL2">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" id="twa-eW-6ek">
+                        <rect key="frame" x="28" y="365" width="14" height="14"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Browse_FullScreen" imagePosition="only" alignment="center" alternateImage="Browse_FullScreenHl" imageScaling="proportionallyDown" inset="2" id="cGx-V1-4NX">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" id="VxT-YE-0Yu">
+                        <rect key="frame" x="11" y="332" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="Preview_Back" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sLS-ph-jlx">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onPreviewBackClick:" target="-2" id="RrG-j4-ObF"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="eK5-NH-EHE">
+                        <rect key="frame" x="54" y="332" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="Preview_Next" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DaB-lm-N6J">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onPreviewNextClick:" target="-2" id="jpU-tf-8QV"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="IYA-pW-wc0">
+                        <rect key="frame" x="108" y="332" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="ViewerWindow-ZoomOut" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="55L-Nx-h83">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onNarrowClick:" target="-2" id="IVf-QA-3hf"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="HhZ-7c-YHE">
+                        <rect key="frame" x="151" y="332" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="ViewerWindow-ZoomIn" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xn8-eu-d7X">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onEnlargeClick:" target="-2" id="arF-eV-b1d"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="Wnb-pe-lrz">
+                        <rect key="frame" x="204" y="332" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="ViewerWindow-Rotate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7o3-At-xIG">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onRotateClick:" target="-2" id="4qG-q7-Awa"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="HgS-rf-UIb">
+                        <rect key="frame" x="317" y="332" width="137" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" title="使用&quot;预览&quot;打开" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="50t-VQ-ey9">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onPreviewClick:" target="-2" id="xBQ-ST-XuL"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="XUB-ft-4kC">
+                        <rect key="frame" x="459" y="332" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="ViewerWindow-Share" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jMJ-n5-UmE">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onShareButtonClick:" target="-2" id="WXT-GA-Ic2"/>
+                        </connections>
+                    </button>
+                    <customView misplaced="YES" id="FLD-uq-QCS" customClass="CustomView">
+                        <rect key="frame" x="0.0" y="0.0" width="513" height="325"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </customView>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+            <point key="canvasLocation" x="-30.5" y="145.5"/>
+        </window>
+        <pagecontroller transitionStyle="horizontalStrip" id="UhI-nx-D6V">
+            <connections>
+                <outlet property="delegate" destination="-2" id="6YS-71-TZU"/>
+                <outlet property="view" destination="FLD-uq-QCS" id="wEc-AV-Beo"/>
+            </connections>
+        </pagecontroller>
+    </objects>
+    <resources>
+        <image name="Browse_Close" width="14" height="14"/>
+        <image name="Browse_CloseHl" width="14" height="14"/>
+        <image name="Browse_FullScreen" width="14" height="14"/>
+        <image name="Browse_FullScreenHl" width="14" height="14"/>
+        <image name="Preview_Back" width="16" height="16"/>
+        <image name="Preview_Next" width="16" height="16"/>
+        <image name="ViewerWindow-Rotate" width="16" height="16"/>
+        <image name="ViewerWindow-Share" width="13" height="16"/>
+        <image name="ViewerWindow-ZoomIn" width="16" height="16"/>
+        <image name="ViewerWindow-ZoomOut" width="16" height="16"/>
+    </resources>
+</document>

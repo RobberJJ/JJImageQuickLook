@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="JJIKImageQLWC">
+            <connections>
+                <outlet property="_mainScrollView" destination="WyI-Da-Xcv" id="UVd-8i-MRr"/>
+                <outlet property="_previewBack" destination="hXB-es-e0f" id="bbc-5r-OAA"/>
+                <outlet property="_previewNext" destination="xGj-x9-QU5" id="pVw-6u-Ie0"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="JJQLWindow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5" customClass="JJQLWindow">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="809" height="438"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="809" height="438"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WyI-Da-Xcv">
+                        <rect key="frame" x="-1" y="0.0" width="810" height="382"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <clipView key="contentView" ambiguous="YES" id="Wby-2J-LHX">
+                            <rect key="frame" x="0.0" y="0.0" width="810" height="382"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XEu-62-Ja6">
+                                    <rect key="frame" x="0.0" y="0.0" width="795" height="367"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.83128160238265991" green="0.8314250111579895" blue="0.83127254247665405" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </clipView>
+                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="J17-xc-xzV">
+                            <rect key="frame" x="0.0" y="366" width="810" height="16"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Xar-3T-nTt">
+                            <rect key="frame" x="794" y="0.0" width="16" height="382"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wbd-uK-Cff">
+                        <rect key="frame" x="591" y="391" width="137" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" title="使用&quot;预览&quot;打开" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="j3K-Jm-jef">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onPreviewClick:" target="-2" id="HAT-92-gxr"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDY-zI-hwE">
+                        <rect key="frame" x="733" y="391" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="ViewerWindow-Share" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9xK-9V-Jgu">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onShareBtnHandle:" target="-2" id="WFO-XL-P1D"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hXB-es-e0f">
+                        <rect key="frame" x="20" y="391" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="Preview_Back" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oy1-Ms-zB8">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onPreviewBackClick:" target="-2" id="fZ8-VK-bYL"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xGj-x9-QU5">
+                        <rect key="frame" x="63" y="391" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="Preview_Next" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qmq-8V-0oX">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onPreviewNextClick:" target="-2" id="hzA-wS-36y"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Sb-ao-eU6">
+                        <rect key="frame" x="117" y="391" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="ViewerWindow-ZoomOut" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4Gl-SQ-c3e">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="zoomout:" target="-2" id="kNm-3R-hMk"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Wa-HY-4w5">
+                        <rect key="frame" x="160" y="391" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="ViewerWindow-ZoomIn" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="djz-lv-q1j">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="zoomin:" target="-2" id="rKe-nO-DOa"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jfw-pk-8tN">
+                        <rect key="frame" x="213" y="391" width="44" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="ViewerWindow-Rotate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b6z-Wq-SnF">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="roration:" target="-2" id="Iy6-w6-Gtx"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+            <point key="canvasLocation" x="-66.5" y="114"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="Preview_Back" width="16" height="16"/>
+        <image name="Preview_Next" width="16" height="16"/>
+        <image name="ViewerWindow-Rotate" width="16" height="16"/>
+        <image name="ViewerWindow-Share" width="13" height="16"/>
+        <image name="ViewerWindow-ZoomIn" width="16" height="16"/>
+        <image name="ViewerWindow-ZoomOut" width="16" height="16"/>
+    </resources>
+</document>
