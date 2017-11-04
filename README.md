@@ -7,4 +7,4 @@
 
 如下图：
 
-![效果图](./JJQLLook.jpg)
+![效果图](https://github.com/RobberJJ/JJImageQuickLook/blob/master/JJQLLook.png)
