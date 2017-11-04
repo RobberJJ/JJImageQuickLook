@@ -8,10 +8,13 @@
 
 #import "JJQuickLookWC.h"
 #import "JJQuickLookVCV3.h"
+#import <Carbon/Carbon.h>
 
 #define kJJQuickLookClose @"kJJQuickLookClose"
 #define kJJQuickLookZoomIn @"kJJQuickLookZoomIn"
 #define kJJQuickLookZoomOut @"kJJQuickLookZoomOut"
+#define kJJQuickLookLastPage @"kJJQuickLookLastPage"
+#define kJJQuickLookNextPage @"kJJQuickLookNextPage"
 
 static JJQuickLookWC *__global_quick_look_wc = nil;
 @interface JJQuickLookWindow : NSWindow
@@ -21,6 +24,7 @@ static JJQuickLookWC *__global_quick_look_wc = nil;
 
 
 - (void)keyDown:(NSEvent *)theEvent{
+    
     unsigned short  keycode = [theEvent keyCode];
     int flags = 0;
     BOOL cmdkeydown = ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagCommand) == NSEventModifierFlagCommand;
@@ -28,14 +32,18 @@ static JJQuickLookWC *__global_quick_look_wc = nil;
         flags = flags | NSEventModifierFlagCommand;
     }
     if ([self windowNumber] == [theEvent windowNumber]) {
-        if (keycode == 49) { //space
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"kJJQuickLookClose" object:theEvent];
-        } else if (cmdkeydown && keycode == 27) { //cmd and -
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"kJJQuickLookZoomOut" object:theEvent];
-        } else if (cmdkeydown && keycode == 24) { //cmd and +
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"kJJQuickLookZoomIn" object:theEvent];
-        } else if (keycode == 53) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"kJJQuickLookClose" object:theEvent];
+        if (keycode == kVK_Space) { //space
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookClose object:theEvent];
+        } else if (cmdkeydown && keycode == kVK_LeftArrow) { //cmd and -
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookZoomOut object:theEvent];
+        } else if (cmdkeydown && keycode == kVK_RightArrow) { //cmd and +
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookZoomIn object:theEvent];
+        } else if (keycode == kVK_Escape) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookClose object:theEvent];
+        }else if ((keycode == kVK_UpArrow || keycode == kVK_LeftArrow)) { // - 前一张
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookLastPage object:theEvent];
+        } else if ((keycode == kVK_DownArrow || keycode == kVK_RightArrow)) { //+ 后一张
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookNextPage object:theEvent];
         }
     }
 }
@@ -161,6 +169,9 @@ static JJQuickLookWC *__global_quick_look_wc = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JJQuickLookClose) name:kJJQuickLookClose object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onEnlargeClick:) name:kJJQuickLookZoomIn object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNarrowClick:) name:kJJQuickLookZoomOut object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPreviewBackClick:) name:kJJQuickLookLastPage object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPreviewNextClick:) name:kJJQuickLookNextPage object:nil];
     
     [self.window setOpaque:NO];
     [self.window setMinSize:NSMakeSize(500, 400)];
@@ -194,6 +205,10 @@ static JJQuickLookWC *__global_quick_look_wc = nil;
 
 #pragma mark - action 
 - (IBAction)onPreviewBackClick:(id)sender {
+    if (self.pageController.selectedIndex-1 < 0) {
+        //已到最左边
+        return;
+    }
     NSUInteger selectIndex = self.pageController.selectedIndex-1;
     [self.pageController setSelectedIndex:selectIndex];
     NSURL *imageUrl = [self getUrlForItemData:[self.data objectAtIndex:selectIndex]];
@@ -202,6 +217,10 @@ static JJQuickLookWC *__global_quick_look_wc = nil;
 }
 
 - (IBAction)onPreviewNextClick:(id)sender {
+    if (self.pageController.selectedIndex + 1 >= self.data.count) {
+        //已到最左边
+        return;
+    }
     NSUInteger selectIndex = self.pageController.selectedIndex+1;
     [self.pageController setSelectedIndex:selectIndex];
     NSURL *imageUrl = [self getUrlForItemData:[self.data objectAtIndex:selectIndex]];

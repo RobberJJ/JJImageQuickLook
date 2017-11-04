@@ -10,6 +10,13 @@
 #import <Quartz/Quartz.h>
 #import <WebKit/WebKit.h>
 #import "NSColor+Utility.h"
+#import <Carbon/Carbon.h>
+
+#define kJJQuickLookClose @"kJJQuickLookClose"
+#define kJJQuickLookZoomIn @"kJJQuickLookZoomIn"
+#define kJJQuickLookZoomOut @"kJJQuickLookZoomOut"
+#define kJJQuickLookLastPage @"kJJQuickLookLastPage"
+#define kJJQuickLookNextPage @"kJJQuickLookNextPage"
 
 @implementation JJIKImagePreviewItem
 @end
@@ -20,16 +27,27 @@
 
 @implementation JJQLWindow
 
-- (void)sendEvent:(NSEvent *)event{
-    [super sendEvent:event];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotifySendEvent" object:event];
-}
-
 - (void)keyDown:(NSEvent *)theEvent{
+    
     unsigned short  keycode = [theEvent keyCode];
+    int flags = 0;
+    BOOL cmdkeydown = ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagCommand) == NSEventModifierFlagCommand;
+    if (cmdkeydown) {
+        flags = flags | NSEventModifierFlagCommand;
+    }
     if ([self windowNumber] == [theEvent windowNumber]) {
-        if (keycode == 49) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotifySpaceKeyDownEvent" object:theEvent];
+        if (keycode == kVK_Space) { //space
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookClose object:theEvent];
+        } else if (cmdkeydown && keycode == kVK_LeftArrow) { //cmd and -
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookZoomOut object:theEvent];
+        } else if (cmdkeydown && keycode == kVK_RightArrow) { //cmd and +
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookZoomIn object:theEvent];
+        } else if (keycode == kVK_Escape) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookClose object:theEvent];
+        }else if ((keycode == kVK_UpArrow || keycode == kVK_LeftArrow)) { // - 前一张
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookLastPage object:theEvent];
+        } else if ((keycode == kVK_DownArrow || keycode == kVK_RightArrow)) { //+ 后一张
+            [[NSNotificationCenter defaultCenter] postNotificationName:kJJQuickLookNextPage object:theEvent];
         }
     }
 }
@@ -69,7 +87,12 @@ static JJIKImageQLWC *__global_ImageQuickLookWC = nil;
     [super windowDidLoad];
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowSpaceKeyDown) name:@"kNotifySpaceKeyDownEvent" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowSpaceKeyDown) name:kJJQuickLookClose object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(zoomIn:) name:kJJQuickLookZoomIn object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(zoomout:) name:kJJQuickLookZoomOut object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPreviewBackClick:) name:kJJQuickLookLastPage object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPreviewNextClick:) name:kJJQuickLookNextPage object:nil];
     
     
     [self.window setMinSize:NSMakeSize(460, 460)];
@@ -84,7 +107,7 @@ static JJIKImageQLWC *__global_ImageQuickLookWC = nil;
     if ([self.window respondsToSelector:@selector(setTitleVisibility:)]) {
         self.window.titleVisibility = NSWindowTitleHidden;
     }
-    self.window.styleMask |= NSFullSizeContentViewWindowMask;
+    self.window.styleMask |= NSWindowStyleMaskFullSizeContentView;
     
     [[self mainImgView] setDoubleClickOpensImageEditPanel: YES];
     [[self mainImgView] setCurrentToolMode: IKToolModeNone];
@@ -211,12 +234,20 @@ static JJIKImageQLWC *__global_ImageQuickLookWC = nil;
 }
 
 - (IBAction)onPreviewBackClick:(id)sender {
+    if (_currentIndex-1 < 0) {
+        //已到最左边
+        return;
+    }
     _currentIndex --;
     [self showWindow:nil];
     [self setPreviewButtonState];
 }
 
 - (IBAction)onPreviewNextClick:(id)sender {
+    if (_currentIndex + 1 >= _items.count) {
+        //已到最左边
+        return;
+    }
     _currentIndex ++;
     [self showWindow:nil];
     [self setPreviewButtonState];
